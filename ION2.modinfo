@@ -1,0 +1,10 @@
+{
+    "name": "ION2",
+    "version": "1.00",
+    "path": ".",
+	"dependencies" : [],
+	"metadata" : {
+	  "author" : "Exaelitus",
+	  "description" : "Item Organizer Network: organize/sort items into storage containers"
+	  }
+}

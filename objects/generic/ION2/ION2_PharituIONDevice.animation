@@ -1,0 +1,93 @@
+{
+  "animatedParts" : 
+  {
+    "stateTypes" : 
+    {
+      "static" : 
+      {
+        "default" : "inert",
+        "states" : 
+        {
+          "inert" : 
+          {
+            "frames" : 1
+          },
+		  "online" : 
+		  {
+			"frames" : 1
+			},
+		  "sending" : 
+		  {
+			"frames" : 1
+		  },
+ 		  "noderadius" : 
+		  {
+			"frames" : 1,
+			 "directives" : "fade=ff0000;0.3"
+		  }
+       }
+      }
+    },
+
+    "parts" : 
+    {
+      "node" : 
+      {
+        "properties" : 
+        {
+          "centered" : false
+        },
+
+        "partStates" : 
+        {
+          "static" : 
+          {
+            "inert" : 
+            {
+              "properties" : 
+              {
+                "image" : "<partImage>:inert"
+              }
+            },
+			"online" : 
+			{
+              "properties" : 
+              {
+                "image" : "<partImage>:online"
+              }
+            },
+			"sending" : 
+			{
+              "properties" : 
+              {
+                "image" : "<partImage>:sending"
+              }
+            }
+          }
+        }
+      },
+	  "noderadius" : 
+	  {
+        "properties" : 
+        {
+          "centered" : true,
+		  "offset" : [0.5, 0.5]
+        },
+        "partStates" : 
+        {
+          "static" : 
+          {
+            "noderadius" : 
+            {
+              "properties" : 
+              {
+                "image" : "<partImage>",
+				"directives" : "fade=ff0000;0.3"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

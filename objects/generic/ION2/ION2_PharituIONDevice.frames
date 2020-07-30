@@ -1,0 +1,16 @@
+{
+  "frameGrid" : 
+  {
+    "size" : [8, 8],
+    "dimensions" : [3, 1],
+    "names" : 
+    [
+      [ "inert", "online", "sending" ]
+    ]
+  },
+
+  "aliases" : 
+  {
+    "default" : "inert"
+  }
+}

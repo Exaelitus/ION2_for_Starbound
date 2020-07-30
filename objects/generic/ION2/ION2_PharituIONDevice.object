@@ -1,0 +1,47 @@
+{
+  "objectName" : "ION2_PharituIONDevice",
+  "shortdescription" : "Ancient Item Organizer Device",
+  "description" : "Monitor and Sender for the Item Organizer Network.",
+  
+  "apexDescription" : "Now I can keep all my bananas organized, Big Ape will be proud!",
+  "avianDescription" : "Now I can keep all my stuff organized, don't tell anyone!",
+  "floranDescription" : "Good for lotsss of Ssstuffsss!",
+  "glitchDescription" : "Emotion: Elation ; This organization network is ideal for surplus items.",
+  "humanDescription" : "Now I can keep all my stuff organized, Mom will be proud!",
+  "hylotlDescription" : "Essential for re-organizing after a typhon!",
+  "novakidDescription" : "I reckon, this here do-hicky will see a plethora of lootz.",
+
+  "colonyTags" : ["wired", "storage", "science", "retroscifi" ],
+  "race" : "generic",
+  "rarity" : "Rare",
+  
+  "printable" : true,
+  "category" : "wire",
+  "price" : 250,
+
+  "inventoryIcon" : "ION2_PharituIONDevice.png:inert",
+  "orientations" : 
+  [
+    {
+      "image" : "ION2_PharituIONDevice_radius.png",
+      "imagePosition" : [-16, -16],
+	  "spaces" : [[0,0]],
+      "anchors" : [ "background" ],
+	  "direction" : "right"
+    }
+  ],
+
+  "scripts" : [ "/objects/generic/ION2/ION2_PharituIONDevice.lua" ],
+  "scriptDelta" : 50,
+  
+  "animation" : "/objects/generic/ION2/ION2_PharituIONDevice.animation",
+  "animationParts" : 
+  {
+    "node" : "ION2_PharituIONDevice.png",
+	"noderadius" : "ION2_PharituIONDevice_radius.png"
+  },
+  "animationPosition" : [0, 0],
+
+  "outputNodes" : [ [0, 0] ],
+  "interval" : 50
+}
