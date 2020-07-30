@@ -1,10 +1,10 @@
 {
   "author" : "Exaelitus",
-  "description" : "",
-  "friendlyName" : "Item Organizer Network 2 (ION2)",
-  "link" : "",
+  "description" : "Item Organizer Network 2 (ION2) provides one new item, \"Pharitu ION Device\" which can be purchased at the Infinity Express in the Outpost.\n\nPlace the item on the wall closest to a storage container that you want to use as a \"loot dump\". When activated, this device will scan that storage container, and then organize/sort the contents into other storage containers nearby.\n\n( It is best if there are no storage containers that are as near to the device as your \"loot dump\" container. It is a lost prototype of the Pharitu precursors afterall! )\n\n\nSteam Mod ID: 2182045406\nVersion: 1.00\n\n\n\nCompatibility / Issues :\n-----------------------\n\n- No known issues.\n\n- Multiplayer, if every client/server has it installed.\n- Confirmed works with Starbound client 1.4.4\n\n- For some elaborate bases or large storage areas with many containers, it is recommended to have a computer that vastly exceeds the \"Recommended\" specs for Starbound found on its Steam store page. Starbound isn't very optimized, even in the best conditions it may lag in some cases.\n- If you are experiencing ANY issues you feel is a bug, please try to repoduce the bug without other Mods active first. It may not be this mod, or it may be a conflict between two or more of them. If it still reproduces, please report the problem in the \"Issues\" discussion area.\n\n- Compatible with Enhanced Storage\n- Compatible with Frackin Universe\n\n\n\nCREDITS / COPYING :\n------------------\n\nThis Mod is a ground-up rewrite of ION, https://steamcommunity.com/sharedfiles/filedetails/?id=1476703959\n( May be a dead-link once the original is deleted. )\n\nION (1) was inspired by the \"Item Broadcaster & Hyper-storage\" Mod by Peasly Wellbott : http://steamcommunity.com/sharedfiles/filedetails/?id=730396626\n\nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.\nhttps://creativecommons.org/licenses/by-nc-sa/4.0/\nhttps://creativecommons.org/licenses/by-nc-sa/4.0/legalcode\n\nAll the source for this Mod can be found on GitHub:\nhttps://github.com/Exaelitus/ION2_for_Starbound\n\nYou can contact the author here, on GitHub, or via email to the address contained in \"Copying.txt\" included inside this Mod package.\n",
+  "friendlyName" : "Item Organizer Network 2 ( ION ): organize/sort items into storage containers",
+  "link" : "steam://url/CommunityFilePage/2182045406",
   "name" : "ION2",
-  "steamContentId" : "",
-  "tags" : "Crafting and Building|Furniture and Objects",
+  "steamContentId" : "2182045406",
+  "tags" : "Crafting and Building|Miscellaneous|Furniture and Objects|In-Game Tools",
   "version" : "1.00"
 }
