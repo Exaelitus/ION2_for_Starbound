@@ -1,6 +1,6 @@
 {
   "objectName" : "ION2_PharituIONDevice",
-  "shortdescription" : "Ancient Item Organizer Device",
+  "shortdescription" : "Ancient ION Device",
   "description" : "Monitor and Sender for the Item Organizer Network.",
   
   "apexDescription" : "Now I can keep all my bananas organized, Big Ape will be proud!",
@@ -13,18 +13,19 @@
 
   "colonyTags" : ["wired", "storage", "science", "retroscifi" ],
   "race" : "generic",
-  "rarity" : "Rare",
+  "rarity" : "Legendary",
   
   "printable" : true,
   "category" : "wire",
-  "price" : 250,
+  "price" : 75,
+  "maxStack" : 10,
 
   "inventoryIcon" : "ION2_PharituIONDevice.png:inert",
   "orientations" : 
   [
     {
       "image" : "ION2_PharituIONDevice_radius.png",
-      "imagePosition" : [-16, -16],
+      "imagePosition" : [-128, -128],
 	  "spaces" : [[0,0]],
       "anchors" : [ "background" ],
 	  "direction" : "right"
@@ -32,7 +33,7 @@
   ],
 
   "scripts" : [ "/objects/generic/ION2/ION2_PharituIONDevice.lua" ],
-  "scriptDelta" : 50,
+  "scriptDelta" : 210,
   
   "animation" : "/objects/generic/ION2/ION2_PharituIONDevice.animation",
   "animationParts" : 
@@ -42,6 +43,7 @@
   },
   "animationPosition" : [0, 0],
 
-  "outputNodes" : [ [0, 0] ],
-  "interval" : 50
+  "inputNodes" : [ [0, 0] ],
+  "outputNodes" : [ [1, 0], [ 1, 1] ],
+  "interval" : 210
 }

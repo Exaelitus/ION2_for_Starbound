@@ -1,9 +1,13 @@
-{
-	"op": "add",
-	"path": "/interactData/items/-",
-	"value": {
-		"item": {
-			"name": "ION2_PharituIONDevice"
-        }
+[
+	{
+		"op" : "add",
+		"path" : "/interactData/items/-",
+		"value" : 
+		{
+			"item" : 
+			{
+				"name" : "ION2_PharituIONDevice"
+			}
+		}
 	}
-}
+]

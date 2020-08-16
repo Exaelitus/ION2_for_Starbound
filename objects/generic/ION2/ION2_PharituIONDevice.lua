@@ -11,7 +11,13 @@ function init ( args )
 	self.myPosition = entity.position()
 	
 	self.animationdelay = 0
-	self.animationdelayDelay = 2
+	self.animationdelayDelay = 1	-- This is NOT in seconds/ticks/etc.  This is a counter for each script call (however long that is)
+	
+	self.powereddelay = 0
+	self.powereddelayDelay = 2	-- TODO: This likely needs to be tweaked/configurable, as tje script should be called only every 3-4 secs
+	self.inputnodeID = 0
+	self.outputnodeID_a = 0
+	self.outputnodeID_b = 1
 	
 	self.containerRadius = 1
 	self.containerID = 0
@@ -19,6 +25,7 @@ function init ( args )
 	self.receiverRadius = 100
 
 	DetermineOwnedContainerID()
+	IndicatorOff()
 end
 
 
@@ -28,7 +35,7 @@ end
 
 function SafeContainerSize ( entityId )
 	local sizeint = 0
-	if ( world.containerSize( entityId ) ~= nil ) then
+	if world.containerSize( entityId ) ~= nil then
 		sizeint = world.containerSize( entityId )
 	end
 	
@@ -54,7 +61,9 @@ end
 function onInteraction ( args )
 	animator.setAnimationState( "static", "noderadius" )
 	self.animationdelay = self.animationdelayDelay
+	self.powereddelay = self.powereddelayDelay
 	
+	DeactivatePoweredOutputs()
 	DetermineOwnedContainerID()
 	
 	if world.entityExists( self.containerID ) then
@@ -64,58 +73,94 @@ end
 
 
 function OrganizePendingItems ()
+	local transferedSomething = false
 	local containeritems = world.containerItems( self.containerID )
 	if #containeritems > 0 then
-		IndicatorOn()
 
 		world.loadRegion( { self.myPosition[1]-self.receiverRadius, self.myPosition[2]-self.receiverRadius, self.myPosition[1]+self.receiverRadius, self.myPosition[2]+self.receiverRadius } )
-		local receiverContainers = world.objectQuery( self.myPosition, self.receiverRadius, {order = "nearest"} )
+		local receiverContainers = world.objectQuery( self.myPosition, self.receiverRadius )
 		
-		if #receivernodes > 1 then
-			local saystring = ""
-			local saystringtemplate = "<name> -> <destChest>"
+		if #receiverContainers > 1 then
+			
+			IndicatorOn()
 
 			-- transfer items
+			local xferResult = {}
 			for x, item in pairs(containeritems) do
 				if item ~= nil then
+					xferResult = item
 					for r2, receiver2 in pairs(receiverContainers) do
-						if ( receiver2 != self.containerID )
-							if ( TransferPendingItemTo(receiver2, item) == true then
---								saystring = sb.replaceTags(saystringtemplate, {name = item.name, destChest = receiver2} )
---								object.say( saystring )
+						if receiver2 ~= nil and receiver2 ~= self.containerID then
+							xferResult = TransferPendingItemTo( receiver2, xferResult )
+							if xferResult == nil then
+								NotifyPoweredOutputs()
+								transferedSomething = true
 								break
 							end
 						end
 					end
 				end
 			end
-
-			
-			-- log untransfered items
-			saystringtemplate = "! ION2 ! - Cannot transfer item: <name> count=<count>"
-			containeritems = world.containerItems( self.containerID )							
-			for x2, item2 in pairs(containeritems) do
-				if item2 ~= nil then
-					saystring = sb.replaceTags(saystringtemplate, {name = item2.name, count = item2.count} )
-					sb.logWarn( saystring )
-				end
-			end
 		end
 		
 	end
-
-		
-	IndicatorOff()
+	
+	return transferedSomething
 end
 
 
 function update ( dt )
-	self.animationdelay = self.animationdelay - 1
-	if self.animationdelay < 0 then
-		self.animationdelay = 0
+	if self.animationdelay ~= 0 then
+		self.animationdelay = self.animationdelay - 1
+		if self.animationdelay < 0 then
+			self.animationdelay = 0
+		end
+	
+		IndicatorOff()
 	end
 	
-	IndicatorOff()
+	if self.powereddelay > 0 then
+		self.powereddelay = self.powereddelay - dt
+		DeactivatePoweredOutputs()
+	else
+		if self.powereddelay == 0 then
+			HandlePoweredConnections()
+			self.powereddelay = self.powereddelayDelay
+		else
+			self.powereddelay = 0
+			DeactivatePoweredOutputs()
+		end
+	end
+end
+
+
+function HandlePoweredConnections ()	-- TODO: is "self." valid syntax for "object." ?  If so, replace...
+	if object.isInputNodeConnected(self.inputnodeID) then
+		if object.getInputNodeLevel(self.inputnodeID) then	-- Docs say this returns a bool even though it's "Level"...
+			DetermineOwnedContainerID()
+			OrganizePendingItems()
+		end
+	end
+end
+
+
+function DeactivatePoweredOutputs ()
+	if object.isOutputNodeConnected(self.outputnodeID_a) then
+		object.setOutputNodeLevel(self.outputnodeID_a, false)
+	end
+	if object.isOutputNodeConnected(self.outputnodeID_b) then
+		object.setOutputNodeLevel(self.outputnodeID_b, false)
+	end
+end
+
+
+function NotifyPoweredOutputs ()
+	if object.isOutputNodeConnected(self.outputnodeID_a) then
+		object.setOutputNodeLevel(self.outputnodeID_a, true)
+	end
+	if object.isOutputNodeConnected(self.outputnodeID_b) then
+		object.setOutputNodeLevel(self.outputnodeID_b, true)
+	end
 end
 
 
@@ -124,6 +169,7 @@ end
 
 
 function die ()
+	DeactivatePoweredOutputs()
 end
 
 
@@ -153,41 +199,63 @@ function IndicatorOff ()
 		else
 			animator.setAnimationState( "static", "inert" )
 		end
-	
+		
 		local saystring = "Eto Akta Gamat"
 		object.say( saystring )
 	end
 end
 
 
-function TransferPendingItemTo ( entityId, sourceItemD )
-	bool transferedEverything = false
+function TransferItemsMatch ( itemLHS, itemRHS )
+	local returnMatched = itemLHS.name == itemRHS.name
+
+	if returnMatched and itemLHS.name == "sapling" then
+		returnMatched = returnMatched and itemLHS.parameters.stemName == itemRHS.parameters.stemName
+		returnMatched = returnMatched and itemLHS.parameters.foliageName == itemRHS.parameters.foliageName
+		returnMatched = returnMatched and itemLHS.parameters.foliageHueShift == itemRHS.parameters.foliageHueShift
+		returnMatched = returnMatched and itemLHS.parameters.stemHueShift == itemRHS.parameters.stemHueShift
+	end
+
+	
+	-- TODO: FUTURE: figure out what IB was doing with these lines in that mod:
+	-- if string.match(item2.name, "generated") then
+	-- if root1.config.category == "platform" then root1.config.category = "block" end
+
+	
+	return returnMatched
+end
+
+
+function TransferPendingItemTo ( destContainerId, itemIn )
+	local returnItem = itemIn
 		
-	if SafeContainerSize(entityId) > 1 then
-		local takenItem = sourceItemD
-		local containeritems = world.containerItems( entityId )
-		for x, item in pairs(containeritems) do
-			if item ~= nil then
-				if sourceItemD.matches(item) then
-
-					-- sb.logInfo( "%s", sb.printJson(sourceItemD, 1) )
-					sourceItemD = world.containerAddItems( entityId, sourceItemD )
-					-- sb.logInfo( "%s", sb.printJson(sourceItemD, 1) )
+	if SafeContainerSize(destContainerId) > 1 then
+		local takenItem = itemIn
+		local itemsMatch = true
+		local containeritems = world.containerItems( destContainerId )
+		for x, itemR in pairs(containeritems) do
+			if itemR ~= nil then
+				itemsMatch = TransferItemsMatch( itemIn, itemR )
+				if itemsMatch then
+					sb.logInfo( "itemIn %s", sb.printJson(itemIn, 1) )
+					sb.logInfo( "itemR %s", sb.printJson(itemR, 1) )
+					returnItem = world.containerAddItems( destContainerId, returnItem )
+					-- sb.logInfo( "returnItem %s", sb.printJson(returnItem, 1) )
 					
-					if ( sourceItemD ~= nil ) then
-						takenItem.count = takenItem.count - sourceItemD.count
+					if returnItem ~= nil then
+						takenItem.count = takenItem.count - returnItem.count
 					end
-					world.containerConsume( entityId, takenItem )
+					world.containerConsume( self.containerID, takenItem )
+					
+					if returnItem == nil then
+						return nil
+					end
 
-					if ( sourceItemD == nil ) then
-						transferedEverything = true
-						break
-					end
 				end
 			end
 		end
 
 	end
 
-	return transferedEverything
+	return returnItem
 end

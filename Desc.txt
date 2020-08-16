@@ -1,29 +1,32 @@
+Item Organizer Network 2 (ION2) provides one new item, "Pharitu ION Device" which can be purchased at the Infinity Express in the Outpost.
 
-Item Organizer Network 2 (ION2) provides one new item, <i>"Pharitu ION Device"</i> which can be purchased at the <b>Infinity Express in the Outpost</b>.
+Place the item on the wall closest to a storage container that you want to use as a "loot dump". When activated, this device will scan that storage container, and then organize/sort the contents into other storage containers nearby.
 
-Place the item on the wall closest to a storage container that you want to use as a "loot dump".  When activated, this device will scan that storage container, and then organize/sort the contents into other storage containers nearby.
+( It is best if there are no storage containers that are as near to the device as your "loot dump" container. It is a lost prototype of the Pharitu precursors afterall! )
 
-( It is best if there are no storage containers that are as near to the device as your "loot dump" container.  It is a lost prototype of the Pharitu precursors afterall! )
+NOTE: The way the mod selects storage containers to sort items into is based on what is in that destination container - it looks for the same items already in each container in order to know where to place items. So, if you have one torch in a container, all the same kind of torches will go into that container.
 
+WIRING: When items are sorted, anything connected to one of the device's outputs will be signaled.  When/While a signal is recieved on the input, the device will be triggered to sort items. 
 
 Steam Mod ID: 2182045406
 Version: 1.00
-	
 
-	
+
+
 Compatibility / Issues :
 -----------------------
-	
-	- No known issues.
-	
-	- Multiplayer, if every client/server has it installed.
-	- Confirmed works with Starbound client 1.4.4
-	
-	- For some elaborate bases or large storage areas with many containers, it is recommended to have a computer that vastly exceeds the "Recommended" specs for Starbound found on its Steam store page.   Starbound isn't very optimized, even in the best conditions it may lag in some cases.
-	- If you are experiencing ANY issues you feel is a bug, please try to repoduce the bug without other Mods active first.  It may not be this mod, or it may be a conflict between two or more of them.  If it still reproduces, please report the problem in the "Issues" discussion area.
 
-	- Compatible with Enhanced Storage
-	- Compatible with Frackin Universe
+- No known issues.
+
+- Compatible with Enhanced Storage
+- Compatible with Frackin Universe
+
+- Multiplayer, if every client/server has it installed.
+- Confirmed works with Starbound client 1.4.4
+
+- For some elaborate bases or large storage areas with many containers, it is recommended to have a computer that vastly exceeds the "Recommended" specs for Starbound found on its Steam store page. Starbound isn't very optimized, even in the best conditions WITHOUT ANY MODS AT ALL it may lag in some cases.  This mod is throttled down tightly, and is extremely efficient, but the APIs it calls into Starbound may not be.
+
+- If you are experiencing ANY issues you feel is a bug, please try to repoduce the bug without other Mods active first. It may not be this mod, or it may be a conflict between two or more of them. If it still reproduces, please report the problem in the "Issues" discussion area.
 
 
 
@@ -33,13 +36,13 @@ CREDITS / COPYING :
 This Mod is a ground-up rewrite of ION, https://steamcommunity.com/sharedfiles/filedetails/?id=1476703959
 ( May be a dead-link once the original is deleted. )
 
-ION (1) was inspired by the "Item Broadcaster & Hyper-storage" Mod by Peasly Wellbott :  http://steamcommunity.com/sharedfiles/filedetails/?id=730396626
+ION (1) was inspired by the "Item Broadcaster & Hyper-storage" Mod by Peasly Wellbott : http://steamcommunity.com/sharedfiles/filedetails/?id=730396626
 
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.  
+This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 
 All the source for this Mod can be found on GitHub:
-insert_url_here_when_uploaded
+https://github.com/Exaelitus/ION2_for_Starbound
 
 You can contact the author here, on GitHub, or via email to the address contained in "Copying.txt" included inside this Mod package.
